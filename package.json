@@ -1,0 +1,38 @@
+{
+  "name": "showu-v2",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc -b && vite build",
+    "check": "tsc -b",
+    "test": "vitest run src",
+    "tauri": "tauri",
+    "test:ui": "playwright test",
+    "format": "prettier --write src tests *.json *.ts",
+    "package:win": "npm run tauri build && node scripts/package.mjs",
+    "check:records": "node scripts/records.mjs audit .",
+    "test:records": "node --test scripts/records.test.mjs"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2.0.0",
+    "@tauri-apps/plugin-dialog": "^2.0.0",
+    "lucide-react": "^0.468.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-markdown": "^10.0.0",
+    "remark-gfm": "^4.0.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "@tauri-apps/cli": "^2.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^6.2.1",
+    "prettier": "^3.9.10",
+    "typescript": "~5.7.2",
+    "vite": "^8.3.5",
+    "vitest": "^5.1.0"
+  }
+}

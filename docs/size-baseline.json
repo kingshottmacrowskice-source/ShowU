@@ -1,0 +1,71 @@
+{
+  "files": [
+    {
+      "path": ".showu/brief.md",
+      "lines": 3,
+      "bytes": 291
+    },
+    {
+      "path": ".showu/plans.md",
+      "lines": 12,
+      "bytes": 691
+    },
+    {
+      "path": ".showu/plans/file-size-management.md",
+      "lines": 80,
+      "bytes": 8088
+    },
+    {
+      "path": ".showu/plans/initial-release.md",
+      "lines": 51,
+      "bytes": 4211
+    },
+    {
+      "path": ".showu/plans/launcher-order.md",
+      "lines": 22,
+      "bytes": 1484
+    },
+    {
+      "path": ".showu/plans/plan-filter.md",
+      "lines": 22,
+      "bytes": 1212
+    },
+    {
+      "path": ".showu/plans/project-home.md",
+      "lines": 25,
+      "bytes": 1518
+    },
+    {
+      "path": ".showu/plans/project-summary.md",
+      "lines": 22,
+      "bytes": 1254
+    },
+    {
+      "path": ".showu/plans/repair-files.md",
+      "lines": 21,
+      "bytes": 874
+    },
+    {
+      "path": ".showu/plans/standalone-launch.md",
+      "lines": 22,
+      "bytes": 1073
+    },
+    {
+      "path": ".showu/requirements/core.md",
+      "lines": 30,
+      "bytes": 1424
+    },
+    {
+      "path": ".showu/requirements/desktop.md",
+      "lines": 64,
+      "bytes": 2230
+    },
+    {
+      "path": ".showu/config.json",
+      "lines": 3,
+      "bytes": 25
+    }
+  ],
+  "totalBytes": 24375,
+  "briefSha256": "d450a09adbe8761ca42b5eb0a70da0461bf7a3a9ff5fe18574b0fa9f950e2e43"
+}

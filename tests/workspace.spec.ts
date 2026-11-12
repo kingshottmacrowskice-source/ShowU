@@ -22,6 +22,8 @@ test.beforeEach(async ({ page }) => {
       let id = 0;
       const files: Record<string, string> = { ...docs };
       const calls: string[] = [];
+      const tools: { tool: { id: string; source: string }; results: string[][] }[] = [];
+      let instruction = "原项目指令";
       const settings = { projects: ["C:/Projects/ShowU"], launchers: [] };
       w.isTauri = true;
       w.__TAURI_EVENT_PLUGIN_INTERNALS__ = { unregisterListener: () => {} };
@@ -48,6 +50,23 @@ test.beforeEach(async ({ page }) => {
           }
           if (cmd === "save_launchers") {
             settings.launchers = args.launchers;
+            return;
+          }
+          if (cmd === "shared_tools") return tools;
+          if (cmd === "import_tool") {
+            tools.push({ tool: { id: "tool-demo", source: args.source }, results: [[settings.projects[0], "待评估"]] });
+            return [];
+          }
+          if (cmd === "tool_instruction") {
+            const addition = instruction.includes("tool-inbox") ? "" : "\n检查 .showu/tool-inbox";
+            if (args.apply) {
+              if (instruction !== args.expected) throw new Error("指令已修改");
+              instruction += addition;
+            }
+            return { expected: instruction, addition };
+          }
+          if (cmd === "resend_tool") {
+            if (args.path !== settings.projects[0] || args.id !== "tool-demo") throw new Error("投递目标错误");
             return;
           }
           if (cmd === "get_settings") return settings;
@@ -324,4 +343,19 @@ test("历史索引展示但正文按需读取，历史需求不计为模块", as
   await page.locator(".plan-list").getByRole("button", {name: /历史计划/}).click();
   await expect(page.locator(".document")).toContainText("历史正文");
   expect(await page.evaluate(() => (window as any).__test.calls.includes("read:plans/old.md"))).toBe(true);
+});
+
+
+test("公共工具导入、项目指令预览和单项目重发", async ({page}) => {
+  await page.getByRole("button",{name:"公共工具",exact:true}).click();
+  await page.getByLabel("工具来源").fill("C:/tools/demo");
+  await page.getByRole("button",{name:"导入并分发"}).click();
+  await expect(page.getByText("待评估",{exact:true})).toBeVisible();
+  await page.getByRole("button",{name:"预览接入"}).click();
+  await expect(page.getByRole("dialog")).toContainText(".showu/tool-inbox");
+  await page.getByRole("button",{name:"追加到项目指令"}).click();
+  await page.getByRole("button",{name:"预览接入"}).click();
+  await expect(page.getByRole("status")).toContainText("项目指令已接入");
+  await page.getByRole("button",{name:"重新发放"}).click();
+  await expect(page.getByRole("status")).toContainText("已向该项目重新发放");
 });

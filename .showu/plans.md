@@ -11,3 +11,4 @@
 | 卡片简介与计划 | done | [project-summary](plans/project-summary.md) |
 | 计划状态筛选 | done | [plan-filter](plans/plan-filter.md) |
 | 长期文件防臃肿 | done | [file-size-management](plans/file-size-management.md) |
+| 公共工具 | done | [shared-tools](plans/shared-tools.md) |

@@ -8,6 +8,8 @@
 - `src-tauri/src/lib.rs` — 原生工作区、计划操作及监听。
 - `src-tauri/src/storage.rs` — 安全文件操作和索引定位。
 
+- `src-tauri/src/shared.rs` — 公共工具快照、投递与项目指令。
+
 ## DESKTOP-001 桌面文件工作区
 - 能力点：项目管理
 - 诉求：Tauri 2 独立应用，左树右内容顶部工具栏；直接读写 .showu，监听文件变化；应用自行保存项目列表。
@@ -77,3 +79,10 @@
 - 状态：active
 - 操作：新增
 - 来源：docs/requirements.md §2.4；2026-11-06 用户要求；unfinished-plans-first / T1
+
+## DESKTOP-011 公共工具
+- 能力点：公共工具导入与分发
+- 诉求：见 docs/requirements.md §2.12。
+- 状态：active
+- 操作：新增
+- 来源：shared-tools / T1、T2；用户 2026-11-07 确认。

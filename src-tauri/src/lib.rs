@@ -1,4 +1,5 @@
 mod storage;
+mod shared;
 
 use notify::{RecommendedWatcher, RecursiveMode, Watcher};
 use serde::{Deserialize, Serialize};
@@ -592,6 +593,10 @@ pub fn run() {
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![
+            shared::shared_tools,
+            shared::import_tool,
+            shared::resend_tool,
+            shared::tool_instruction,
             get_settings,
             project_summary,
             select_project,

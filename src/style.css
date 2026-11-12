@@ -1282,3 +1282,9 @@ main {
 .project-plan-row small { flex-shrink: 0; color: #477c62; }
 
 .plan-filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
+.shared-tools { display: grid; gap: 16px; max-width: 960px; margin: auto; padding: 24px; overflow-wrap: anywhere; }
+.shared-tools .card { padding: 18px; }
+.shared-tools label { display: grid; gap: 6px; margin-bottom: 12px; }
+.shared-tools .button { margin-right: 8px; }
+.shared-tools pre, .shared-tools p { white-space: pre-wrap; }
+.tool-result { border-top: 1px solid #ddd; margin-top: 12px; padding-top: 12px; }

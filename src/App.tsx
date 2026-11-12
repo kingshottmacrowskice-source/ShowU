@@ -35,8 +35,9 @@ import { Editor } from "./components/Editor";
 import { PlanForm, ModuleForm } from "./components/PlanForms";
 import { Launchers, GitPanel } from "./components/Tools";
 import { ProjectSummary } from "./components/ProjectSummary";
+import { SharedTools } from "./components/SharedTools";
 import { Guide } from "./components/Guide";
-type View = "home" | "overview" | "file" | "launchers" | "git" | "guide";
+type View = "shared" | "home" | "overview" | "file" | "launchers" | "git" | "guide";
 type Confirm = { message: string; resolve: (answer: boolean) => void };
 const emptySettings: Settings = { projects: [], launchers: [] };
 function FileTree({
@@ -371,6 +372,7 @@ export default function App() {
             <GitBranch size={17} />
             Git 同步
           </button>
+          <button className={view === "shared" ? "nav-item selected" : "nav-item"} onClick={() => navigate("shared")}><Folder size={17} />公共工具</button>
           <div className="local-note">
             <span />
             本地文件 · 项目长期记忆
@@ -386,6 +388,7 @@ export default function App() {
             <strong>
               {
                 {
+                  shared: "公共工具",
                   home: "首页",
                   overview: "项目总览",
                   file,
@@ -789,6 +792,7 @@ export default function App() {
               }}
             />
           )}
+          {view === "shared" && <SharedTools projects={settings.projects} />}
           {view === "guide" && <Guide />}
           {view === "launchers" && (
             <Launchers

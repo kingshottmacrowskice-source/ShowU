@@ -69,3 +69,7 @@
 - `node scripts/records.mjs split-plans . 2026`：仅当主索引超过 50 个已完成/取消计划时分片；已有同年分片需人工合并核对，不覆盖。先在 .showu-backups 下保存含所有原文和目标文本的 manifest，再写入；备份不进入默认工作区读取。
 - `node scripts/records.mjs restore . .showu-backups/<批次>/manifest.json`：中断恢复；仅恢复仍等于原文或本次目标文本的文件，拒绝覆盖后续外部修改。备份保留以便追溯。
 - 需求历史与计划过程按语义人工分层，不能仅凭长度自动判断有效性。迁移前记录清单/原文备份；完成后核对原文、ID、来源、链接与总数，再更新当前摘要。
+
+### 公共工具
+
+公共库位于应用配置目录的 shared-tools。项目指令按用户预览追加到 AGENTS.md 或 CLAUDE.md。通知与回执分别保存在 .showu/tool-inbox 和 .showu/tool-results；同一工具在单项目中至多有一份待处理通知。处理结果由项目 AI 写入，界面可刷新查看。

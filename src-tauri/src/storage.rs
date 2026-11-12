@@ -21,6 +21,16 @@ pub fn atomic_write(path: &Path, content: &str) -> Result<()> {
     Ok(())
 }
 
+fn is_link(meta: &fs::Metadata) -> bool {
+    #[cfg(windows)]
+    {
+        use std::os::windows::fs::MetadataExt;
+        meta.file_attributes() & 0x400 != 0
+    }
+    #[cfg(not(windows))]
+    { meta.file_type().is_symlink() }
+}
+
 pub fn safe_path(root: &Path, relative: &str) -> Result<PathBuf> {
     let rel = Path::new(relative);
     if relative.contains(['\\', ':'])
@@ -31,7 +41,7 @@ pub fn safe_path(root: &Path, relative: &str) -> Result<PathBuf> {
     }
     let mut current = root.to_path_buf();
     if fs::symlink_metadata(&current)
-        .map(|m| m.file_type().is_symlink())
+        .map(|m| is_link(&m))
         .unwrap_or(false)
     {
         return Err("不允许 .showu 符号链接".into());
@@ -39,7 +49,7 @@ pub fn safe_path(root: &Path, relative: &str) -> Result<PathBuf> {
     for part in rel.components() {
         current.push(part);
         if let Ok(meta) = fs::symlink_metadata(&current) {
-            if meta.file_type().is_symlink() {
+            if is_link(&meta) {
                 return Err("不允许符号链接".into());
             }
         }
@@ -82,7 +92,7 @@ pub fn list_files(root: &Path) -> Result<Vec<String>> {
         for entry in fs::read_dir(dir).map_err(|e| e.to_string())? {
             let entry = entry.map_err(|e| e.to_string())?;
             let kind = entry.file_type().map_err(|e| e.to_string())?;
-            if kind.is_symlink() {
+            if kind.is_symlink() || is_link(&fs::symlink_metadata(entry.path()).map_err(|e| e.to_string())?) {
                 continue;
             }
             if kind.is_dir() {
